@@ -7,15 +7,14 @@
 package main
 
 import (
-	"fmt"
 	"io"
 	"net/http"
 	"strings"
 	"encoding/json"
 	"regexp"
-	//"regexp/syntax"
 )
 
+// The header
 const header = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -58,6 +57,7 @@ $(function() {
 				$("#regex-fail").removeClass("hidden");
 				return;
 			}
+			console.log(json);
 			var result = $("#match-result");
 			var groups = $("#match-groups");
 
@@ -102,6 +102,7 @@ $(function() {
 });
 </script>
 
+<!--
 <div class="row well">
 	<h4>Oh, well</h4>
 	<ul>
@@ -119,6 +120,7 @@ $(function() {
 		<li>Provide simplified regex for convenience</li>
 	</ul>
 </div>
+-->
 </div>
 </body>
 </html>`
@@ -205,7 +207,7 @@ func regCompile(w http.ResponseWriter, req *http.Request) {
 		j.Encode(map[string]string{"error": "greg: Input cannot be empty"})
 		return
 	}
-	inputs := strings.Split(input, "\n")
+	inputs := strings.Split(input, "\r\n")
 	if len(inputs) == 1 && inputs[0] == "" { // TODO: Better input validation
 		j.Encode(map[string]string{"error": "greg: Input cannot be empty"})
 	}
@@ -216,16 +218,19 @@ func regCompile(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	ret := make(map[string]interface{}, 3)
+	ret := make(map[string]interface{}, 4)
 	ret["regex"] = re.String()
+	ret["echo"] = input
 	// TODO(tj): Provide simplified expression (using regexp/syntax)
 	//ret["simple"] = re.Simplify().String()
 	var matches []map[string]interface{}
 
 	// Do matching
-	im := re.FindAllStringSubmatchIndex(inputs[0], -1)
-	matches = append(matches, map[string]interface{}{ "input": inputs[0], "im": im })
-	//matches = append(matches, map[string]interface{ "input": inputs[0], "im": im })
+	for _, in := range inputs {
+		im := re.FindAllStringSubmatchIndex(in, -1)
+		matches = append(matches, map[string]interface{}{ "input": in, "im": im })
+	}
+
 	ret["matches"] = matches
 
 	err = j.Encode(ret)
@@ -234,11 +239,13 @@ func regCompile(w http.ResponseWriter, req *http.Request) {
 	}
 }
 
-func main() {
+func init() {
 	http.HandleFunc("/", index)
 	http.HandleFunc("/compile", regCompile)
-	fmt.Println("Go to http://localhost:9000")
+	//fmt.Println("Go to http://localhost:9000")
+	/*
 	if err := http.ListenAndServe(":9000", nil); err != nil {
 		fmt.Println(err)
 	}
+	*/
 }
