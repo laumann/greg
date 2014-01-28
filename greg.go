@@ -207,7 +207,7 @@ func regCompile(w http.ResponseWriter, req *http.Request) {
 	// TODO(tj): Provide simplified expression (using regexp/syntax)
 	//ret["simple"] = re.Simplify().String()
 
-	matches := make([]map[string]interface{}, len(inputs))
+	var matches []map[string]interface{}
 
 	// Do matching
 	im := re.FindAllStringSubmatchIndex(inputs[0], -1)
