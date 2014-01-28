@@ -56,8 +56,7 @@ $(function() {
 				return;
 			}
 			for (var key in json.matches) {
-				if (json.matches[key] != null)
-					console.log(json.matches[key].input + " => " + json.matches[key].im);
+				console.log(json.matches[key].input + " => " + json.matches[key].im);
 			}
 			$("#regex-fail").addClass("hidden");
 			$("#regex-match").html(json.regex);
