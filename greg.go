@@ -22,10 +22,13 @@ const header = `<!DOCTYPE html>
 	<title>greg: a Go regular expression editor and tester</title>
 
 	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+	<!-- link rel="stylesheet"
+	href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css"
+	-->
 
 	<!-- Optional theme -->
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
+	<!-- http://bootswatch.com/slate/bootstrap.min.css -->
+	<link rel="stylesheet"	href="//bootswatch.com/cyborg/bootstrap.min.css">
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     	<script src="https://code.jquery.com/jquery.js"></script>
@@ -55,11 +58,17 @@ $(function() {
 				$("#regex-fail").removeClass("hidden");
 				return;
 			}
+			var result = $("#match-result");
+			var groups = $("#match-groups");
+
+			var list = '<ul>';
 			for (var key in json.matches) {
-				console.log(json.matches[key].input + " => " + json.matches[key].im);
+				list +=  '<li>' + json.matches[key].input + " => " + json.matches[key].im + '</li>';
 			}
+			list += '</ul>';
+			result.append(list);
 			$("#regex-fail").addClass("hidden");
-			$("#regex-match").html(json.regex);
+			//$("#regex-match").html(json.regex);
 			$("#regex-match").removeClass("hidden");
 		},
 		showSpinner: function() {
@@ -123,7 +132,10 @@ const regForm = `
 <form action="/compile" role="form" method="POST" id="greg">
 	<div class="controls">
 		<div class="col-xs-10">
-			<input type="text" class="form-control" name="regex" id="regex" placeholder="Enter regex here" />
+			<div class="input-group">
+				<span class="input-group-addon">/</span>
+				<input type="text" class="form-control" name="regex" id="regex" placeholder="Enter regex here" />
+			</div>
 			<span class="help-block">Your regular expression</span>
 		</div>
 		<div class="col-xs-2">
@@ -135,15 +147,20 @@ const regForm = `
 			<span class="help-block">Your test input</span>
 		</div>
 		<div class="col-xs-6">
-			<!-- The content here is changeable -->
 			<div class="text-center alert alert-success" id="greeting">
 				Greg is a <a href="http://golang.org">Go</a>-based regular expression editor.
 				It's a handy way to test regular expressions as you write them.
 
 				To start, enter a regular expression and a test string.
 			</div>
-			<div class="hidden well" id="regex-match">
-			
+			<div class="hidden" id="regex-match">
+				<div class="row well well-sm" id="match-result">
+
+				</div>
+				<span class="help-block">Match Result</span>
+				<div class="row well well-sm" id="match-groups">
+				</div>
+				<span class="help-block">Match Groups</span>
 			</div>
 			<div class="hidden alert alert-danger" id="regex-fail">
 			</div>
@@ -155,9 +172,7 @@ const regForm = `
 	<div class="col-xs-12">
 		<span id="spin" class="glyphicon glyphicon-record pull-right hidden"></span>
 	</div>
-</div>
-
-`
+</div>`
 
 func index(w http.ResponseWriter, req *http.Request) {
 	io.WriteString(w, header)
@@ -205,7 +220,6 @@ func regCompile(w http.ResponseWriter, req *http.Request) {
 	ret["regex"] = re.String()
 	// TODO(tj): Provide simplified expression (using regexp/syntax)
 	//ret["simple"] = re.Simplify().String()
-
 	var matches []map[string]interface{}
 
 	// Do matching
