@@ -36,8 +36,11 @@ const header = `<!DOCTYPE html>
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 
 	<style type="text/css">
-	#regex, #regex-input, #regex-match {
+	#regex, #regex-input, #match-result, #match-groups {
 		font-family: monospace;
+	}
+	span.match {
+		background-color: #f80;
 	}
 	</style>
 </head>
@@ -63,10 +66,28 @@ $(function() {
 
 			var list = '<ul>';
 			for (var key in json.matches) {
-				list +=  '<li>' + json.matches[key].input + " => " + json.matches[key].im + '</li>';
+				list +=  '<li>';
+				var input = json.matches[key].input;
+				var im = json.matches[key].im; // im is [][]int
+				if (im == null) {
+					list += input;
+				} else {
+					var pos = 0;
+					im.forEach(function(m) {
+						var i = m[0], j = m[1];
+						console.log("before:  (" + pos + ", " + i + ") #=> " + input.substring(pos,i));
+						console.log("matched: (" + i + ", " + j + ") #=> " + input.substring(i,j));
+						list += input.substring(pos, i); // before match
+						list += '<span class="match">' + input.substring(i, j) + '</span>'; // match
+						pos = j; // move pos up	
+					});
+					list += input.substring(pos, input.length);
+
+				}
+				list += '</li>';
 			}
 			list += '</ul>';
-			result.append(list);
+			result.html(list);
 			$("#regex-fail").addClass("hidden");
 			//$("#regex-match").html(json.regex);
 			$("#regex-match").removeClass("hidden");
@@ -156,13 +177,14 @@ const regForm = `
 				To start, enter a regular expression and a test string.
 			</div>
 			<div class="hidden" id="regex-match">
-				<div class="row well well-sm" id="match-result">
-
+				<div class="row panel panel-default">
+					<div class="panel-heading">Match Result</div>
+					<div class="panel-body" id="match-result"></div>
 				</div>
-				<span class="help-block">Match Result</span>
-				<div class="row well well-sm" id="match-groups">
+				<div class="row panel panel-default">
+					<div class="panel-heading">Match Groups</div>
+					<div class="panel-body" id="match-groups"></div>
 				</div>
-				<span class="help-block">Match Groups</span>
 			</div>
 			<div class="hidden alert alert-danger" id="regex-fail">
 			</div>
