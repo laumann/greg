@@ -56,8 +56,9 @@ func compile(w http.ResponseWriter, req *http.Request) {
 	}
 
 	// Return value
-	ret := make(map[string]interface{}, 3)
+	ret := make(map[string]interface{}, 4)
 	ret["regex"] = re.String()
+	ret["names"] = re.SubexpNames()
 
 	// TODO(tj): Provide simplified expression (using regexp/syntax)
 	//ret["simple"] = re.Simplify().String()
