@@ -56,9 +56,8 @@ func compile(w http.ResponseWriter, req *http.Request) {
 	}
 
 	// Return value
-	ret := make(map[string]interface{}, 4)
+	ret := make(map[string]interface{}, 3)
 	ret["regex"] = re.String()
-	ret["echo"] = input
 
 	// TODO(tj): Provide simplified expression (using regexp/syntax)
 	//ret["simple"] = re.Simplify().String()

@@ -130,9 +130,15 @@ const regForm = `
 </div>
 <div class="row">
 	<div class="col-xs-12 text-right">
-		<a href="#" onclick="Greg.clear(); return false;" class="btn btn-default btn-sm" role="button">Clear fields</a>
+		<div class="btn-group text-left">
+			<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+				Options <span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu" role="menu">
+				<li><a href="#" onclick="Greg.clear(); return false;">Clear fields</a></li>
+			</ul>
+		</div>
 	</div>
-
 </div>
 </form>
 </div>
@@ -146,7 +152,7 @@ const regForm = `
 						<table class="table table-condensed">
 							<tr>
 								<td><span class="rx-syntax">.</span></td>
-								<td>any character, possibly including newline (flag s=true)</td>
+								<td>any character, possibly including newline</td>
 							</tr>
 							<tr>
 								<td><span class="rx-syntax">[xyz]</span></td>
