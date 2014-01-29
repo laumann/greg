@@ -31,6 +31,7 @@ const header = `<!DOCTYPE html>
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     	<script src="https://code.jquery.com/jquery.js"></script>
+	<script src="/js/greg.js"></script>
 
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
@@ -39,8 +40,12 @@ const header = `<!DOCTYPE html>
 	#regex, #regex-input, #match-result, #match-groups {
 		font-family: monospace;
 	}
+	#match-result, #match-groups {
+		color: #fff;
+	}
 	span.match {
-		background-color: #f80;
+		/*background-color: #f80;*/
+		background-color: #2386B4;
 	}
 	</style>
 </head>
@@ -52,6 +57,7 @@ const footer = `
 <script type="text/javascript">
 $(function() {
 
+	/*
 	var Greg = {
 		showMatches: function(json) {
 			if (json.error) {
@@ -64,7 +70,7 @@ $(function() {
 			var result = $("#match-result");
 			var groups = $("#match-groups");
 
-			var list = '<ul>';
+			var list = '<ul class="list-unstyled">';
 			for (var key in json.matches) {
 				list +=  '<li>';
 				var input = json.matches[key].input;
@@ -75,8 +81,8 @@ $(function() {
 					var pos = 0;
 					im.forEach(function(m) {
 						var i = m[0], j = m[1];
-						console.log("before:  (" + pos + ", " + i + ") #=> " + input.substring(pos,i));
-						console.log("matched: (" + i + ", " + j + ") #=> " + input.substring(i,j));
+						//console.log("before:  (" + pos + ", " + i + ") #=> " + input.substring(pos,i));
+						//console.log("matched: (" + i + ", " + j + ") #=> " + input.substring(i,j));
 						list += input.substring(pos, i); // before match
 						list += '<span class="match">' + input.substring(i, j) + '</span>'; // match
 						pos = j; // move pos up	
@@ -89,7 +95,6 @@ $(function() {
 			list += '</ul>';
 			result.html(list);
 			$("#regex-fail").addClass("hidden");
-			//$("#regex-match").html(json.regex);
 			$("#regex-match").removeClass("hidden");
 		},
 		showSpinner: function() {
@@ -114,8 +119,14 @@ $(function() {
 				},
 				dataType: "json"
 			});
+		},
+		example: function() {
+			$("#regex").html("a(a*a)b");
+			$("#regex-input").html("aaaab\nxabx");
+			Greg.update();
 		}
 	};
+	*/
 
 	$("#regex").change(Greg.update);
 	$("#regex-input").change(Greg.update);
@@ -167,14 +178,15 @@ const regForm = `
 		</div>
 		<div class="col-xs-6">
 			<textarea class="form-control" rows="10" name="regex-input" id="regex-input"></textarea>
-			<span class="help-block">Your test input</span>
+			<!-- span class="help-block">Your test input</span -->
 		</div>
 		<div class="col-xs-6">
 			<div class="text-center alert alert-success" id="greeting">
 				Greg is a <a href="http://golang.org">Go</a>-based regular expression editor.
 				It's a handy way to test regular expressions as you write them.
 
-				To start, enter a regular expression and a test string.
+				To start, enter a regular expression and a test
+				string, or try an <a href="#" onclick="Greg.example(); return false;">example</a>.
 			</div>
 			<div class="hidden" id="regex-match">
 				<div class="row panel panel-default">
