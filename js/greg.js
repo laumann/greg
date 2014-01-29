@@ -5,7 +5,7 @@ var Greg = {
 	showMatches: function(json) {
 		if (json.error) {
 			$("#regex-match").addClass("hidden");
-			$("#regex-fail").html(json.error);
+			$("#error-msg").html(json.error);
 			$("#regex-fail").removeClass("hidden");
 			return;
 		}
@@ -56,6 +56,7 @@ var Greg = {
 			error:   function(jqXHR, status, err) {
 				$("#regex-fail").removeClass("hidden");
 				$("#regex-fail").html(status);
+				$("#regex-match").addClass("hidden");
 			},
 			dataType: "json"
 		});

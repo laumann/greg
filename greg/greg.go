@@ -7,11 +7,11 @@
 package greg
 
 import (
+	"encoding/json"
 	"io"
 	"net/http"
-	"strings"
-	"encoding/json"
 	"regexp"
+	"strings"
 )
 
 func index(w http.ResponseWriter, req *http.Request) {
@@ -27,11 +27,10 @@ func index(w http.ResponseWriter, req *http.Request) {
 //
 //  - Posix?
 //  -
-func regCompile(w http.ResponseWriter, req *http.Request) {
-	j := json.NewEncoder(w) // Must, but could fail
+func compile(w http.ResponseWriter, req *http.Request) {
+	j := json.NewEncoder(w)
 
-	err := req.ParseForm()
-	if err != nil {
+	if err := req.ParseForm(); err != nil {
 		j.Encode(map[string]string{"error": err.Error()})
 		return
 	}
@@ -56,17 +55,19 @@ func regCompile(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
+	// Return value
 	ret := make(map[string]interface{}, 4)
 	ret["regex"] = re.String()
 	ret["echo"] = input
+
 	// TODO(tj): Provide simplified expression (using regexp/syntax)
 	//ret["simple"] = re.Simplify().String()
-	var matches []map[string]interface{}
 
 	// Do matching
+	var matches []map[string]interface{}
 	for _, in := range inputs {
 		im := re.FindAllStringSubmatchIndex(in, -1)
-		matches = append(matches, map[string]interface{}{ "input": in, "im": im })
+		matches = append(matches, map[string]interface{}{"input": in, "im": im})
 	}
 
 	ret["matches"] = matches
@@ -79,5 +80,5 @@ func regCompile(w http.ResponseWriter, req *http.Request) {
 
 func init() {
 	http.HandleFunc("/", index)
-	http.HandleFunc("/compile", regCompile)
+	http.HandleFunc("/compile", compile)
 }

@@ -1,7 +1,8 @@
 package greg
 
 // The header
-const header = `<!DOCTYPE html>
+const header =
+`<!DOCTYPE html>
 <html lang="en">
 <head>
 	<title>greg: a Go regular expression editor and tester</title>
@@ -39,8 +40,8 @@ const header = `<!DOCTYPE html>
 <div class="container">
 `
 
-const footer = `
-<script type="text/javascript">
+const footer =
+`<script type="text/javascript">
 $(function() {
 	$("#regex").change(Greg.update);
 	$("#regex-input").change(Greg.update);
@@ -76,8 +77,9 @@ const gregHeader = `<div class="row">
 </div>`
 
 const regForm = `
+<div class="well">
 <div class="row">
-<form action="/compile" role="form" method="POST" id="greg">
+<form role="form" id="greg">
 	<div class="controls">
 		<div class="col-xs-10">
 			<div class="input-group">
@@ -103,20 +105,42 @@ const regForm = `
 				string, or try an <a href="#" onclick="Greg.example(); return false;">example</a>.
 			</div>
 			<div class="hidden" id="regex-match">
-				<div class="row panel panel-default">
+				<div class="panel panel-default">
 					<div class="panel-heading">Match Result</div>
 					<div class="panel-body" id="match-result"></div>
 				</div>
-				<div class="row panel panel-default">
+				<div class="panel panel-default">
 					<div class="panel-heading">Match Groups</div>
 					<div class="panel-body" id="match-groups"></div>
 				</div>
 			</div>
-			<div class="hidden alert alert-danger" id="regex-fail">
+			<div class="hidden" id="regex-fail">
+				<div class="panel panel-danger">
+					<div class="panel-heading"><strong>DANGER ZONE</strong></div>
+					<div class="panel-body" id="error-msg"></div>
+				</div>
 			</div>
+		</div>
+		<div class="form-group text-center">
+			<button type="button" class="btn btn-primary btn-xs">Clear fields</button>
 		</div>
 	</div>
 </form>
+</div>
+</div>
+<div class="row">
+	<div class="col-xs-12">
+	<div class="panel panel-info">
+		<div class="panel-heading">Quick Reference</div>
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-xs-4">Column 1</div>
+				<div class="col-xs-4">Column 2</div>
+				<div class="col-xs-4">Column 3</div>
+			</div>
+		</div>
+	</div>
+	</div>
 </div>
 <div class="row">
 	<div class="col-xs-12">
