@@ -32,6 +32,13 @@ const header =
 	span.match {
 		background-color: #f89406;
 	}
+	span.rx-syntax {
+		font-weight: bold;
+		font-family: monospace;
+	}
+	.table td {
+		border-top: none;
+	}
 	</style>
 </head>
 <body>
@@ -123,7 +130,7 @@ const regForm = `
 </div>
 <div class="row">
 	<div class="col-xs-12 text-right">
-		<a href="#" onclick="Greg.clear(); return false;" class="btn btn-primary btn-sm" role="button">Clear fields</a>
+		<a href="#" onclick="Greg.clear(); return false;" class="btn btn-default btn-sm" role="button">Clear fields</a>
 	</div>
 
 </div>
@@ -131,16 +138,122 @@ const regForm = `
 </div>
 <div class="row">
 	<div class="col-xs-12">
-	<div class="panel panel-info">
-		<div class="panel-heading">Quick Reference</div>
-		<div class="panel-body">
-			<div class="row">
-				<div class="col-xs-4">Column 1</div>
-				<div class="col-xs-4">Column 2</div>
-				<div class="col-xs-4">Column 3</div>
+		<div class="panel panel-info">
+			<div class="panel-heading">Quick Reference</div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-xs-4">
+						<table class="table table-condensed">
+							<tr>
+								<td><span class="rx-syntax">.</span></td>
+								<td>any character, possibly including newline (flag s=true)</td>
+							</tr>
+							<tr>
+								<td><span class="rx-syntax">[xyz]</span></td>
+								<td>character class</td>
+							</tr>
+							<tr>
+								<td><span class="rx-syntax">[^xyz]</span></td>
+								<td>negated character class</td>
+							</tr>
+							<tr>
+								<td><span class="rx-syntax">\d</span></td>
+								<td>Perl character class</td>
+							</tr>
+							<tr>
+								<td><span class="rx-syntax">\D</span></td>
+								<td>negated Perl character class</td>
+							</tr>
+							<tr>
+								<td><span class="rx-syntax">[:alpha:]</span></td>
+								<td>ASCII character class</td>
+							</tr>
+							<tr>
+								<td><span class="rx-syntax">[:^alpha]</span></td>
+								<td>negated ASCII character class</td>
+							</tr>
+							<tr>
+								<td><span class="rx-syntax">\pN</span></td>
+								<td>Unicode character class (one-letter name)</td>
+							</tr>
+							<tr>
+								<td><span class="rx-syntax">\p{Greek}</span></td>
+								<td>Unicode character class</td>
+							</tr>
+							<tr>
+								<td><span class="rx-syntax">\PN</span></td>
+								<td>negated Unicode character class (one-letter name)</td>
+							</tr>
+							<tr>
+								<td><span class="rx-syntax">P{Greek}</span></td>
+								<td>negated Unicode character class</td>
+							</tr>
+						</table>
+					</div>
+					<div class="col-xs-4">
+						<table class="table table-condensed">
+							<tr>
+								<td><span class="rx-syntax">xy</span></td>
+								<td>x followed by y</td>
+							</tr>
+							<tr>
+								<td><span class="rx-syntax">x|y</span></td>
+								<td>x or y (prefer x)</td>
+							</tr>
+							<tr>
+								<td><span class="rx-syntax">x*</span></td>
+								<td>zero or more x, prefer more</td>
+							</tr>
+							<tr>
+								<td><span class="rx-syntax">x+</span></td>
+								<td>one or more x, prefer more</td>
+							</tr>
+							<tr>
+								<td><span class="rx-syntax">x?</span></td>
+								<td>zero or one x, prefer one</td>
+							</tr>
+							<tr>
+								<td><span class="rx-syntax">x{n,m}</span></td>
+								<td>n or n+1 or ... or m x, prefer more</td>
+							</tr>
+							<tr>
+								<td><span class="rx-syntax">x{n,}</span></td>
+								<td>n or more x, prefer more</td>
+							</tr>
+							<tr>
+								<td><span class="rx-syntax">x{n}</span></td>
+								<td>exactly n x</td>
+							</tr>
+							<tr>
+								<td><span class="rx-syntax">x*?</span></td>
+								<td>zero or more x, prefer fewer</td>
+							</tr>
+							<tr>
+								<td><span class="rx-syntax">x+?</span></td>
+								<td>one or more x, prefer fewer</td>
+							</tr>
+							<tr>
+								<td><span class="rx-syntax">x??</span></td>
+								<td>zero or one x, prefer zero</td>
+							</tr>
+							<tr>
+								<td><span class="rx-syntax">x{n,m}?</span></td>
+								<td>n or n+1 or ... or m x, prefer fewer</td>
+							</tr>
+							<tr>
+								<td><span class="rx-syntax">x{n,}?</span></td>
+								<td>n or more x, prefer fewer</td>
+							</tr>
+							<tr>
+								<td><span class="rx-syntax">x{n}?</span></td>
+								<td>exactly n x</td>
+							</tr>
+						</table>
+				</div>
+					<div class="col-xs-4">Column 3</div>
+				</div>
 			</div>
 		</div>
-	</div>
 	</div>
 </div>
 <div class="row">
