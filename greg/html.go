@@ -7,14 +7,13 @@ const header =
 <head>
 	<title>greg: a Go regular expression editor and tester</title>
 
-	<!-- Latest compiled and minified CSS -->
-	<!-- link rel="stylesheet"
-	href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css"
+	<!-- Latest compiled and minified CSS
 	-->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
 
 	<!-- Optional theme -->
 	<!-- http://bootswatch.com/slate/bootstrap.min.css -->
-	<link rel="stylesheet"	href="//bootswatch.com/cyborg/bootstrap.min.css">
+	<link rel="stylesheet"	href="http://bootswatch.com/slate/bootstrap.min.css">
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     	<script src="https://code.jquery.com/jquery.js"></script>
@@ -31,8 +30,7 @@ const header =
 		color: #fff;
 	}
 	span.match {
-		/*background-color: #f80;*/
-		background-color: #2386B4;
+		background-color: #f89406;
 	}
 	</style>
 </head>
@@ -78,8 +76,8 @@ const gregHeader = `<div class="row">
 
 const regForm = `
 <div class="well">
-<div class="row">
 <form role="form" id="greg">
+<div class="row">
 	<div class="controls">
 		<div class="col-xs-10">
 			<div class="input-group">
@@ -105,11 +103,11 @@ const regForm = `
 				string, or try an <a href="#" onclick="Greg.example(); return false;">example</a>.
 			</div>
 			<div class="hidden" id="regex-match">
-				<div class="panel panel-default">
+				<div class="panel panel-primary">
 					<div class="panel-heading">Match Result</div>
 					<div class="panel-body" id="match-result"></div>
 				</div>
-				<div class="panel panel-default">
+				<div class="panel panel-primary">
 					<div class="panel-heading">Match Groups</div>
 					<div class="panel-body" id="match-groups"></div>
 				</div>
@@ -120,13 +118,16 @@ const regForm = `
 					<div class="panel-body" id="error-msg"></div>
 				</div>
 			</div>
-		</div>
-		<div class="form-group text-center">
-			<button type="button" class="btn btn-primary btn-xs">Clear fields</button>
-		</div>
+		</div>	
 	</div>
-</form>
 </div>
+<div class="row">
+	<div class="col-xs-12 text-right">
+		<a href="#" onclick="Greg.clear(); return false;" class="btn btn-primary btn-sm" role="button">Clear fields</a>
+	</div>
+
+</div>
+</form>
 </div>
 <div class="row">
 	<div class="col-xs-12">

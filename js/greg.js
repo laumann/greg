@@ -65,5 +65,12 @@ var Greg = {
 		$("#regex").val("a(a*)b");
 		$("#regex-input").html("aaaab\nxabx");
 		Greg.update();
-	}
+	},
+	clear: function() {
+		$("#regex").val("");
+		$("#regex-input").html("");
+		$("#regex-match").addClass("hidden");
+		$("#regex-fail").addClass("hidden");
+		$("#greeting").removeClass("hidden");
+	},
 };
