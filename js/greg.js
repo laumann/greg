@@ -24,14 +24,11 @@ var Greg = {
 				var pos = 0;
 				im.forEach(function(m) {
 					var i = m[0], j = m[1];
-					//console.log("before:  (" + pos + ", " + i + ") #=> " + input.substring(pos,i));
-					//console.log("matched: (" + i + ", " + j + ") #=> " + input.substring(i,j));
 					list += input.substring(pos, i); // before match
 					list += '<span class="match">' + input.substring(i, j) + '</span>'; // match
 					pos = j; // move pos up	
 				});
 				list += input.substring(pos, input.length);
-
 			}
 			list += '</li>';
 		}
@@ -64,7 +61,7 @@ var Greg = {
 		});
 	},
 	example: function() {
-		$("#regex").html("a(a*a)b");
+		$("#regex").val("a(a*)b");
 		$("#regex-input").html("aaaab\nxabx");
 		Greg.update();
 	}
