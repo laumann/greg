@@ -36,6 +36,9 @@ const header =
 		font-weight: bold;
 		font-family: monospace;
 		white-space: nowrap;
+		padding-right: 2px;
+		min-width: 40px;
+		display: inline-block;
 	}
 	.table td {
 		border-top: none;
@@ -154,8 +157,8 @@ const regForm = `
 <div class="row">
 <div class="col-xs-12">
 		<ul class="nav nav-tabs">
-			<li class="active"><a href="#qref1" data-toggle="tab">Quick Reference (1)</a></li>
-			<li><a href="#qref2" data-toggle="tab">Quick Reference (2)</a></li>
+			<li class="active"><a href="#qref1" data-toggle="tab">Syntax</a></li>
+			<li><a href="#qref2" data-toggle="tab">Escape Sequences</a></li>
 			<li><a href="#about" data-toggle="tab">About</a></li>
 		</ul>
 		<div class="tab-content">
@@ -191,7 +194,7 @@ const regForm = `
 						<td>ASCII character class</td>
 					</tr>
 					<tr>
-						<td><span class="rx-syntax">[:^alpha]</span></td>
+						<td><span class="rx-syntax">[:^alpha:]</span></td>
 						<td>negated ASCII character class</td>
 					</tr>
 					<tr>
@@ -326,7 +329,122 @@ const regForm = `
 
 			</div>
 			<div class="tab-pane fade" id="qref2">
-				<p>qref2</p>
+			<div class="row">
+				<div class="col-xs-4">
+			<table class="qref">
+					<tr>
+						<td colspan=2><span class="label label-primary">Empty strings</span></td>
+					</tr>
+					<tr>
+						<td><span class="rx-syntax">^</span></td>
+						<td>at beginning of text or line (flag m=true)</td>
+					</tr>
+					<tr>
+						<td><span class="rx-syntax">$</span></td>
+						<td>at end of text (like \z not \Z) or line (flag m=true)</td>
+					</tr>
+					<tr>
+						<td><span class="rx-syntax">\A</span></td>
+						<td>at beginning of text</td>
+					</tr>
+					<tr>
+						<td><span class="rx-syntax">\b</span></td>
+						<td>at ASCII word boundary (\w on one side and \W, \A, or \z on the other)</td>
+					</tr>
+					<tr>
+						<td><span class="rx-syntax">\B</span></td>
+						<td>not an ASCII word boundary</td>
+					</tr>
+					<tr>
+						<td><span class="rx-syntax">\z</span></td>
+						<td>at end of text</td>
+					</tr>
+				</table>
+				</div>
+				<div class="col-xs-4">
+				<table class="qref">
+					<tr>
+						<td colspan=2><span class="label label-primary">Escape sequences</span></td>
+					</tr>
+					<tr>
+						<td><span class="rx-syntax">\a</span></td>
+						<td>bell (== \007)</td>
+					</tr>
+					<tr>
+						<td><span class="rx-syntax">\f</span></td>
+						<td>form feed (== \014)</td>
+					</tr>
+					<tr>
+						<td><span class="rx-syntax">\t</span></td>
+						<td>horizontal tab (== \011)</td>
+					</tr>
+					<tr>
+						<td><span class="rx-syntax">\n</span></td>
+						<td>newline (== \012)</td>
+					</tr>
+					<tr>
+						<td><span class="rx-syntax">\r</span></td>
+						<td>carriage return (== \015)</td>
+					</tr>
+					<tr>
+						<td><span class="rx-syntax">\v</span></td>
+						<td>vertical tab character (== \013)</td>
+					</tr>
+					<tr>
+						<td><span class="rx-syntax">\*</span></td>
+						<td>literal *, for any punctuation character *</td>
+					</tr>
+					<tr>
+						<td><span class="rx-syntax">\123</span></td>
+						<td>octal character code (up to three digits)</td>
+					</tr>
+					<tr>
+						<td><span class="rx-syntax">\x7F</span></td>
+						<td>hex character code (exactly two digits)</td>
+					</tr>
+					<tr>
+						<td><span class="rx-syntax">\x{10FFFF}</span></td>
+						<td>hex character code</td>
+					</tr>
+					<tr>
+						<td><span class="rx-syntax">\Q...\E</span></td>
+						<td>literal text ... even if ... has punctuation</td>
+					</tr>
+				</table>
+
+				</div>
+				<div class="col-xs-4">
+				<table class="qref">
+					<tr>
+						<td colspan=2><span class="label label-primary">Character class elements</span></td>
+					</tr>
+					<tr>
+						<td><span class="rx-syntax">x</span></td>
+						<td>single character</td>
+					</tr>
+					<tr>
+						<td><span class="rx-syntax">A-Z</span></td>
+						<td>character range (inclusive)</td>
+					</tr>
+					<tr>
+						<td><span class="rx-syntax">\d</span></td>
+						<td>Perl character class</td>
+					</tr>
+					<tr>
+						<td><span class="rx-syntax">[:foo:]</span></td>
+						<td>ASCII character class foo</td>
+					</tr>
+					<tr>
+						<td><span class="rx-syntax">\p{Foo}</span></td>
+						<td>Unicode character class Foo</td>
+					</tr>
+					<tr>
+						<td><span class="rx-syntax">\pF</span></td>
+						<td>Unicode character class F (one-letter name)</td>
+					</tr>
+				</table>
+				</div>
+			</div>
 			</div>
 			<div class="tab-pane fade" id="about">
 			<p>Created <a href="http://github.com/laumann">Thomas
