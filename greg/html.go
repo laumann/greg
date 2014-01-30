@@ -282,7 +282,7 @@ const regForm = `
 				<div class="col-xs-4">
 				<table class="qref">
 					<tr>
-						<td colspan=2><span class="label label-primary">Grouping (w/flags)</span></td>
+						<td colspan=2><span class="label label-primary">Grouping</span></td>
 					</tr>
 					<tr>
 						<td><span class="rx-syntax">(re)</span></td>
@@ -305,30 +305,22 @@ const regForm = `
 						<td>set flags during re; non-capturing</td>
 					</tr>
 					<tr>
-						<td><span class="rx-syntax">i</span></td>
+						<td><span class="label label-default">flag</span> <span class="rx-syntax">i</span> </td>
 						<td>case-insensitive (default false)</td>
 					</tr>
 					<tr>
-						<td><span class="rx-syntax">m</span></td>
+						<td><span class="label label-default">flag</span> <span class="rx-syntax">m</span> </td>
 						<td>multi-line mode: ^ and $ match begin/end line in addition to begin/end text (default false)</td>
 					</tr>
 					<tr>
-						<td><span class="rx-syntax">s</span></td>
+						<td><span class="label label-default">flag</span> <span class="rx-syntax">s</span> </td>
 						<td>let . match \n (default false)</td>
 					</tr>
 					<tr>
-						<td><span class="rx-syntax">U</span></td>
+						<td><span class="label label-default">flag</span> <span class="rx-syntax">U</span> </td>
 						<td>ungreedy: swap meaning of x* and x*?, x+ and x+?, etc (default false)</td>
 					</tr>
 				</table>
-				<!--
-^              at beginning of text or line (flag m=true)
-$              at end of text (like \z not \Z) or line (flag m=true)
-\A             at beginning of text
-\b             at ASCII word boundary (\w on one side and \W, \A, or \z on the other)
-\B             not an ASCII word boundary
-\z             at end of text
-				-->
 				</div>
 			</div>
 
