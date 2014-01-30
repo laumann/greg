@@ -35,9 +35,18 @@ const header =
 	span.rx-syntax {
 		font-weight: bold;
 		font-family: monospace;
+		white-space: nowrap;
 	}
 	.table td {
 		border-top: none;
+	}
+	table.qref {
+		background-color: #272b30;
+		margin: 2px;
+		width: 100%;
+	}
+	table.qref td {
+		vertical-align: top;
 	}
 	</style>
 </head>
@@ -143,127 +152,198 @@ const regForm = `
 </form>
 </div>
 <div class="row">
-	<div class="col-xs-12">
-		<div class="panel panel-info">
-			<div class="panel-heading">Quick Reference</div>
-			<div class="panel-body">
-				<div class="row">
-					<div class="col-xs-4">
-						<table class="table table-condensed">
-							<tr>
-								<td><span class="rx-syntax">.</span></td>
-								<td>any character, possibly including newline</td>
-							</tr>
-							<tr>
-								<td><span class="rx-syntax">[xyz]</span></td>
-								<td>character class</td>
-							</tr>
-							<tr>
-								<td><span class="rx-syntax">[^xyz]</span></td>
-								<td>negated character class</td>
-							</tr>
-							<tr>
-								<td><span class="rx-syntax">\d</span></td>
-								<td>Perl character class</td>
-							</tr>
-							<tr>
-								<td><span class="rx-syntax">\D</span></td>
-								<td>negated Perl character class</td>
-							</tr>
-							<tr>
-								<td><span class="rx-syntax">[:alpha:]</span></td>
-								<td>ASCII character class</td>
-							</tr>
-							<tr>
-								<td><span class="rx-syntax">[:^alpha]</span></td>
-								<td>negated ASCII character class</td>
-							</tr>
-							<tr>
-								<td><span class="rx-syntax">\pN</span></td>
-								<td>Unicode character class (one-letter name)</td>
-							</tr>
-							<tr>
-								<td><span class="rx-syntax">\p{Greek}</span></td>
-								<td>Unicode character class</td>
-							</tr>
-							<tr>
-								<td><span class="rx-syntax">\PN</span></td>
-								<td>negated Unicode character class (one-letter name)</td>
-							</tr>
-							<tr>
-								<td><span class="rx-syntax">P{Greek}</span></td>
-								<td>negated Unicode character class</td>
-							</tr>
-						</table>
-					</div>
-					<div class="col-xs-4">
-						<table class="table table-condensed">
-							<tr>
-								<td><span class="rx-syntax">xy</span></td>
-								<td>x followed by y</td>
-							</tr>
-							<tr>
-								<td><span class="rx-syntax">x|y</span></td>
-								<td>x or y (prefer x)</td>
-							</tr>
-							<tr>
-								<td><span class="rx-syntax">x*</span></td>
-								<td>zero or more x, prefer more</td>
-							</tr>
-							<tr>
-								<td><span class="rx-syntax">x+</span></td>
-								<td>one or more x, prefer more</td>
-							</tr>
-							<tr>
-								<td><span class="rx-syntax">x?</span></td>
-								<td>zero or one x, prefer one</td>
-							</tr>
-							<tr>
-								<td><span class="rx-syntax">x{n,m}</span></td>
-								<td>n or n+1 or ... or m x, prefer more</td>
-							</tr>
-							<tr>
-								<td><span class="rx-syntax">x{n,}</span></td>
-								<td>n or more x, prefer more</td>
-							</tr>
-							<tr>
-								<td><span class="rx-syntax">x{n}</span></td>
-								<td>exactly n x</td>
-							</tr>
-							<tr>
-								<td><span class="rx-syntax">x*?</span></td>
-								<td>zero or more x, prefer fewer</td>
-							</tr>
-							<tr>
-								<td><span class="rx-syntax">x+?</span></td>
-								<td>one or more x, prefer fewer</td>
-							</tr>
-							<tr>
-								<td><span class="rx-syntax">x??</span></td>
-								<td>zero or one x, prefer zero</td>
-							</tr>
-							<tr>
-								<td><span class="rx-syntax">x{n,m}?</span></td>
-								<td>n or n+1 or ... or m x, prefer fewer</td>
-							</tr>
-							<tr>
-								<td><span class="rx-syntax">x{n,}?</span></td>
-								<td>n or more x, prefer fewer</td>
-							</tr>
-							<tr>
-								<td><span class="rx-syntax">x{n}?</span></td>
-								<td>exactly n x</td>
-							</tr>
-						</table>
+<div class="col-xs-12">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="#qref1" data-toggle="tab">Quick Reference (1)</a></li>
+			<li><a href="#qref2" data-toggle="tab">Quick Reference (2)</a></li>
+			<li><a href="#about" data-toggle="tab">About</a></li>
+		</ul>
+		<div class="tab-content">
+			<div class="tab-pane fade active in" id="qref1">
+			<div class="row">
+				<div class="col-xs-4">
+			<table class="qref">
+					<tr>
+						<td colspan=2><span class="label label-primary">Single characters</span></td>
+					</tr>
+					<tr>
+						<td><span class="rx-syntax">.</span></td>
+						<td>any character, possibly including newline</td>
+					</tr>
+					<tr>
+						<td><span class="rx-syntax">[xyz]</span></td>
+						<td>character class</td>
+					</tr>
+					<tr>
+						<td><span class="rx-syntax">[^xyz]</span></td>
+						<td>negated character class</td>
+					</tr>
+					<tr>
+						<td><span class="rx-syntax">\d</span></td>
+						<td>Perl character class</td>
+					</tr>
+					<tr>
+						<td><span class="rx-syntax">\D</span></td>
+						<td>negated Perl character class</td>
+					</tr>
+					<tr>
+						<td><span class="rx-syntax">[:alpha:]</span></td>
+						<td>ASCII character class</td>
+					</tr>
+					<tr>
+						<td><span class="rx-syntax">[:^alpha]</span></td>
+						<td>negated ASCII character class</td>
+					</tr>
+					<tr>
+						<td><span class="rx-syntax">\pN</span></td>
+						<td>Unicode character class (one-letter name)</td>
+					</tr>
+					<tr>
+						<td><span class="rx-syntax">\p{Greek}</span></td>
+						<td>Unicode character class</td>
+					</tr>
+					<tr>
+						<td><span class="rx-syntax">\PN</span></td>
+						<td>negated Unicode character class (one-letter name)</td>
+					</tr>
+					<tr>
+						<td><span class="rx-syntax">P{Greek}</span></td>
+						<td>negated Unicode character class</td>
+					</tr>
+				</table>
 				</div>
-					<div class="col-xs-4">Column 3</div>
+				<div class="col-xs-4">
+				<table class="qref">
+					<tr>
+						<td colspan=2><span class="label label-primary">Composites</span></td>
+					</tr>
+					<tr>
+						<td><span class="rx-syntax">xy</span></td>
+						<td>x followed by y</td>
+					</tr>
+					<tr>
+						<td><span class="rx-syntax">x|y</span></td>
+						<td>x or y (prefer x)</td>
+					</tr>
+					<tr>
+						<td colspan=2><span class="label label-primary">Repetitions</span></td>
+					</tr>
+					<tr>
+						<td><span class="rx-syntax">x*</span></td>
+						<td>zero or more x, prefer more</td>
+					</tr>
+					<tr>
+						<td><span class="rx-syntax">x+</span></td>
+						<td>one or more x, prefer more</td>
+					</tr>
+					<tr>
+						<td><span class="rx-syntax">x?</span></td>
+						<td>zero or one x, prefer one</td>
+					</tr>
+					<tr>
+						<td><span class="rx-syntax">x{n,m}</span></td>
+						<td>n or n+1 or ... or m x, prefer more</td>
+					</tr>
+					<tr>
+						<td><span class="rx-syntax">x{n,}</span></td>
+						<td>n or more x, prefer more</td>
+					</tr>
+					<tr>
+						<td><span class="rx-syntax">x{n}</span></td>
+						<td>exactly n x</td>
+					</tr>
+					<tr>
+						<td><span class="rx-syntax">x*?</span></td>
+						<td>zero or more x, prefer fewer</td>
+					</tr>
+					<tr>
+						<td><span class="rx-syntax">x+?</span></td>
+						<td>one or more x, prefer fewer</td>
+					</tr>
+					<tr>
+						<td><span class="rx-syntax">x??</span></td>
+						<td>zero or one x, prefer zero</td>
+					</tr>
+					<tr>
+						<td><span class="rx-syntax">x{n,m}?</span></td>
+						<td>n or n+1 or ... or m x, prefer fewer</td>
+					</tr>
+					<tr>
+						<td><span class="rx-syntax">x{n,}?</span></td>
+						<td>n or more x, prefer fewer</td>
+					</tr>
+					<tr>
+						<td><span class="rx-syntax">x{n}?</span></td>
+						<td>exactly n x</td>
+					</tr>
+				</table>
+
+				</div>
+				<div class="col-xs-4">
+				<table class="qref">
+					<tr>
+						<td colspan=2><span class="label label-primary">Grouping (w/flags)</span></td>
+					</tr>
+					<tr>
+						<td><span class="rx-syntax">(re)</span></td>
+						<td>numbered capturing group</td>
+					</tr>
+					<tr>
+						<td><span class="rx-syntax">(?P&lt;name&gt;re)</span></td>
+						<td>named & numbered capturing group (submatch)</td>
+					</tr>
+					<tr>
+						<td><span class="rx-syntax">(?:re)</span></td>
+						<td>non-capturing group (submatch)</td>
+					</tr>
+					<tr>
+						<td><span class="rx-syntax">(?flags)</span></td>
+						<td>set flags within current group</td>
+					</tr>
+					<tr>
+						<td><span class="rx-syntax">(?flags:re)</span></td>
+						<td>set flags during re; non-capturing</td>
+					</tr>
+					<tr>
+						<td><span class="rx-syntax">i</span></td>
+						<td>case-insensitive (default false)</td>
+					</tr>
+					<tr>
+						<td><span class="rx-syntax">m</span></td>
+						<td>multi-line mode: ^ and $ match begin/end line in addition to begin/end text (default false)</td>
+					</tr>
+					<tr>
+						<td><span class="rx-syntax">s</span></td>
+						<td>let . match \n (default false)</td>
+					</tr>
+					<tr>
+						<td><span class="rx-syntax">U</span></td>
+						<td>ungreedy: swap meaning of x* and x*?, x+ and x+?, etc (default false)</td>
+					</tr>
+				</table>
+				<!--
+^              at beginning of text or line (flag m=true)
+$              at end of text (like \z not \Z) or line (flag m=true)
+\A             at beginning of text
+\b             at ASCII word boundary (\w on one side and \W, \A, or \z on the other)
+\B             not an ASCII word boundary
+\z             at end of text
+				-->
 				</div>
 			</div>
+
+			</div>
+			<div class="tab-pane fade" id="qref2">
+				<p>qref2</p>
+			</div>
+			<div class="tab-pane fade" id="about">
+			<p>Created <a href="http://github.com/laumann">Thomas
+			Jespersen</a>. Heavily inspired
+				by <a href="http://rubular.com">Rubular</a>. The
+				source code can be found on <a
+				href="http://github.com/laumann/greg">Github</a>
+				</p>
+			</div>
 		</div>
-	</div>
 </div>
-<div class="row">
-	<div class="col-xs-12">
-		<span id="spin" class="glyphicon glyphicon-record pull-right hidden"></span>
-	</div>
 </div>`
