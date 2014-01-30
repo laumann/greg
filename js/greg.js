@@ -85,8 +85,9 @@ var Greg = {
 		});
 	},
 	example: function() {
-		$("#regex").val("a(a*)b");
-		$("#regex-input").val("aaaab\nxabx");
+		var d=new Date;
+		$("#regex").val('(?P<day>\\d{1,2})/(?P<month>\\d{1,2})/(?P<year>\\d{4})');
+		$("#regex-input").val("Today's date is: " + d.getDate() + "/" + (d.getMonth() + 1) + "/" + d.getFullYear() + ".");
 		Greg.update();
 	},
 	clear: function() {
