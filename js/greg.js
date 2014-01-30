@@ -14,6 +14,8 @@ var Greg = {
 		var groups = $("#match-groups");
 
 		var list = '<ul class="list-unstyled">';
+		var mcnt = 0;
+		var subm = '';
 		for (var key in json.matches) {
 			list +=  '<li>';
 			var input = json.matches[key].input;
@@ -26,7 +28,23 @@ var Greg = {
 					var i = m[0], j = m[1];
 					list += input.substring(pos, i); // before match
 					list += '<span class="match">' + input.substring(i, j) + '</span>'; // match
-					pos = j; // move pos up	
+					pos = j; // move pos up
+					if (m.length > 2) {
+						for (var k = 2; k < m.length; k += 2) {
+							var i = m[k], j = m[k+1];
+							subm += '<tr><td>'
+							if (json.names[k/2]) {
+								subm += '<span class="label label-primary">';
+								subm += json.names[k/2];
+								subm += '</span>';
+							} else {
+								subm += (++mcnt);
+							}
+							subm += '</td><td>'
+							subm += input.substring(i, j);
+							subm += '</td></tr>\n';
+						}
+					}
 				});
 				list += input.substring(pos, input.length);
 			}
@@ -34,6 +52,11 @@ var Greg = {
 		}
 		list += '</ul>';
 		result.html(list);
+		if (subm.length > 0) {
+			groups.html('<table>' + subm + '</table>');
+		} else {
+			groups.html("");
+		}
 		$("#regex-fail").addClass("hidden");
 		$("#regex-match").removeClass("hidden");
 	},
@@ -63,7 +86,7 @@ var Greg = {
 	},
 	example: function() {
 		$("#regex").val("a(a*)b");
-		$("#regex-input").html("aaaab\nxabx");
+		$("#regex-input").val("aaaab\nxabx");
 		Greg.update();
 	},
 	clear: function() {

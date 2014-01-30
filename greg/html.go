@@ -30,7 +30,8 @@ const header =
 		color: #fff;
 	}
 	span.match {
-		background-color: #f89406;
+	/*	background-color: #f89406; */
+		background-color: #62C462;
 	}
 	span.rx-syntax {
 		font-weight: bold;
