@@ -68,7 +68,7 @@ var Greg = {
 	},
 	clear: function() {
 		$("#regex").val("");
-		$("#regex-input").html("");
+		$("#regex-input").val("");
 		$("#regex-match").addClass("hidden");
 		$("#regex-fail").addClass("hidden");
 		$("#greeting").removeClass("hidden");
