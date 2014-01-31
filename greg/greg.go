@@ -4,6 +4,10 @@
 //
 //  - Anything but '/compile' brings you the front page
 //  - /compile expects a regular expressions (mandatory) and optionally a list of parameters to try out.
+//
+// TODO Use POSIX matcher if specified
+// TODO Don't throw away blank lines
+// TODO Provide simplify functionality
 package greg
 
 import (
@@ -22,11 +26,22 @@ func index(w http.ResponseWriter, req *http.Request) {
 }
 
 // Compile a given regular expression and write out the result in JSON
+// The result is something like
 //
-// There are quite a few switches to take care of
+// 	{ "matches":
+//		[ { "im":   [[15,24,15,16,17,19,20,24]] ,"input": "Today date is: 1/29/2014."}
+//		]
+//	, "names": ["","month","day","year"]
+//	, "regex": "(?P\u003cmonth\u003e\\d{1,2})\\/(?P\u003cday\u003e\\d{1,2})\\/(?P\u003cyear\u003e\\d{4})"
+//	}
 //
-//  - Posix?
-//  -
+// Where the matches are an array of objects. Each object then in turns contains
+// a list of matches, im, which is [][]int as returned by
+//
+//	re.FindAllStringSubmatchIndex()
+//
+// for each input line. The array 'matches' is sorted according to the input
+// lines.
 func compile(w http.ResponseWriter, req *http.Request) {
 	j := json.NewEncoder(w)
 
@@ -45,8 +60,9 @@ func compile(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 	inputs := strings.Split(input, "\r\n")
-	if len(inputs) == 1 && inputs[0] == "" { // TODO: Better input validation
+	if len(inputs) == 1 && inputs[0] == "" {
 		j.Encode(map[string]string{"error": "greg: Input cannot be empty"})
+		return
 	}
 
 	re, err := regexp.Compile(exp)
@@ -59,9 +75,6 @@ func compile(w http.ResponseWriter, req *http.Request) {
 	ret := make(map[string]interface{}, 4)
 	ret["regex"] = re.String()
 	ret["names"] = re.SubexpNames()
-
-	// TODO(tj): Provide simplified expression (using regexp/syntax)
-	//ret["simple"] = re.Simplify().String()
 
 	// Do matching
 	var matches []map[string]interface{}
