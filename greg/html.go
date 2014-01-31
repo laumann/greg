@@ -12,8 +12,9 @@ const header =
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
 
 	<!-- Optional theme -->
-	<!-- http://bootswatch.com/slate/bootstrap.min.css -->
+	<!-- http://bootswatch.com/slate/bootstrap.min.css
 	<link rel="stylesheet"	href="http://bootswatch.com/slate/bootstrap.min.css">
+	-->
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     	<script src="https://code.jquery.com/jquery.js"></script>
@@ -27,10 +28,10 @@ const header =
 		font-family: monospace;
 	}
 	#match-result, #match-groups {
-		color: #fff;
+		/*color: #fff;*/
 	}
 	span.match {
-	/*	background-color: #f89406; */
+	/*	background-color: #f89406; */ 
 		background-color: #62C462;
 	}
 	span.rx-syntax {
@@ -45,7 +46,7 @@ const header =
 		border-top: none;
 	}
 	table.qref {
-		background-color: #272b30;
+		/*background-color: #272b30;*/
 		margin: 2px;
 		width: 100%;
 	}
@@ -66,26 +67,6 @@ $(function() {
 	$("#regex-mod").change(Greg.update);
 });
 </script>
-
-<!--
-<div class="row well">
-	<h4>Oh, well</h4>
-	<ul>
-		<li>Make regex <em>actually</em> match the test input
-			<ul>
-				<li>backend compiles regex</li>
-				<li>matches against input</li>
-				<li>return list of matches (as JSON)</li>
-				<li>matches are lined up</li>
-			</ul>
-		Instead of returning just a list of matching subindices we might be smarter to return a little more information. Return: a list of pairs, where each pair is (input, submatches) in which submatches is a list of indices.
-		</li>
-		<li>Is there any use for flag?</em>
-		<li>Split up files, so js files go in the right directory</li>
-		<li>Provide simplified regex for convenience</li>
-	</ul>
-</div>
--->
 </div>
 </body>
 </html>`
@@ -144,12 +125,17 @@ const regForm = `
 <div class="row">
 	<div class="col-xs-12 text-right">
 		<div class="btn-group text-left">
+			<!--
+			<button type="button" class="btn btn-sm btn-default">Simplify</button>
+			<div class="btn-group">
+			-->
 			<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
 				Options <span class="caret"></span>
 			</button>
 			<ul class="dropdown-menu" role="menu">
 				<li><a href="#" onclick="Greg.clear(); return false;">Clear fields</a></li>
 			</ul>
+			<!-- /div -->
 		</div>
 	</div>
 </div>
