@@ -31,8 +31,7 @@ const header =
 		/*color: #fff;*/
 	}
 	span.match {
-	/*	background-color: #f89406; */ 
-		background-color: #62C462;
+		background-color: #f0ad4e;
 	}
 	span.rx-syntax {
 		font-weight: bold;
@@ -62,9 +61,9 @@ const header =
 const footer =
 `<script type="text/javascript">
 $(function() {
-	$("#regex").change(Greg.update);
-	$("#regex-input").change(Greg.update);
-	$("#regex-mod").change(Greg.update);
+	$("#regex").on('keyup change', Greg.update);
+	$("#regex-input").on('keyup change', Greg.update);
+	$("#regex-mod").on('keyup change', Greg.update);
 });
 </script>
 </div>
@@ -434,7 +433,7 @@ const regForm = `
 			</div>
 			</div>
 			<div class="tab-pane fade" id="about">
-			<p>Created <a href="http://github.com/laumann">Thomas
+			<p>Created by <a href="http://github.com/laumann">Thomas
 			Jespersen</a>. Heavily inspired
 				by <a href="http://rubular.com">Rubular</a>. The
 				source code can be found on <a
