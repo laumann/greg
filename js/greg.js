@@ -67,7 +67,10 @@ var Greg = {
 		$("#spin").addClass("hidden");
 	},
 	update: function() {
+		if ( $("#regex").val() == "" || $("#regex-input").val() == "")
+			return;
 		$("#greeting").addClass("hidden");
+
 		$.ajax({
 			type:    "POST",
 			url:     "/compile",
@@ -85,7 +88,7 @@ var Greg = {
 		});
 	},
 	example: function() {
-		var d=new Date;
+		var d = new Date;
 		$("#regex").val('(?P<day>\\d{1,2})/(?P<month>\\d{1,2})/(?P<year>\\d{4})');
 		$("#regex-input").val("Today's date is: " + d.getDate() + "/" + (d.getMonth() + 1) + "/" + d.getFullYear() + ".");
 		Greg.update();
