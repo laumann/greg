@@ -2,7 +2,15 @@
  * Greg JS component
  */
 var Greg = {
+	showSpinner: function() {
+		$("#spin").removeClass("hidden");
+	},
+	hideSpinner: function() {
+		$("#spin").addClass("hidden");
+	},
 	showMatches: function(json) {
+		$("#greeting").addClass("hidden");
+		Greg.hideSpinner();
 		if (json.error) {
 			$("#regex-match").addClass("hidden");
 			$("#error-msg").html(json.error);
@@ -39,6 +47,7 @@ var Greg = {
 								subm += '</span>';
 							} else {
 								subm += (++mcnt);
+								subm += ". ";
 							}
 							subm += '</td><td>'
 							subm += input.substring(i, j);
@@ -60,16 +69,10 @@ var Greg = {
 		$("#regex-fail").addClass("hidden");
 		$("#regex-match").removeClass("hidden");
 	},
-	showSpinner: function() {
-		$("#spin").removeClass("hidden");
-	},
-	hideSpinner: function() {
-		$("#spin").addClass("hidden");
-	},
 	update: function() {
 		if ( $("#regex").val() == "" || $("#regex-input").val() == "")
 			return;
-		$("#greeting").addClass("hidden");
+		Greg.showSpinner();
 
 		$.ajax({
 			type:    "POST",

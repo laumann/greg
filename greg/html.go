@@ -79,16 +79,13 @@ const regForm = `
 <form role="form" id="greg">
 <div class="row">
 	<div class="controls">
-		<div class="col-xs-10">
+		<div class="col-xs-12">
 			<div class="input-group">
-				<span class="input-group-addon">/</span>
+			<span class="input-group-addon">/</span>
 				<input type="text" class="form-control" name="regex" id="regex" placeholder="Enter regex here" />
+				<span class="input-group-addon">/</span>
 			</div>
 			<span class="help-block">Your regular expression</span>
-		</div>
-		<div class="col-xs-2">
-			<input type="text" class="form-control" name="regex-mod" id="regex-mod" placeholder="" />
-			<span class="help-block">Modifiers</span>
 		</div>
 		<div class="col-xs-6">
 			<textarea class="form-control" rows="10" name="regex-input" id="regex-input"></textarea>
@@ -122,7 +119,9 @@ const regForm = `
 	</div>
 </div>
 <div class="row">
-	<div class="col-xs-12 text-right">
+	<div class="col-xs-12">
+	<div class="pull-left"><img src="img/ajax-loader.gif" id="spin" class="hidden" /></div>
+	<div class="pull-right">
 		<div class="btn-group text-left">
 			<!--
 			<button type="button" class="btn btn-sm btn-default">Simplify</button>
@@ -136,6 +135,7 @@ const regForm = `
 			</ul>
 			<!-- /div -->
 		</div>
+	</div>
 	</div>
 </div>
 </form>
