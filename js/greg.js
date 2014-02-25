@@ -23,6 +23,7 @@ var Greg = {
 
 		var list = '<ul class="list-unstyled">';
 		var mcnt = 0;
+		var n = 0;
 		var subm = '';
 		for (var key in json.matches) {
 			list +=  '<li>';
@@ -38,6 +39,9 @@ var Greg = {
 					list += '<span class="match">' + input.substring(i, j) + '</span>'; // match
 					pos = j; // move pos up
 					if (m.length > 2) {
+						if (json.matches.length > 1)
+							subm += '<tr><td colspan=2><span class="match-count">Match ' + (++n) + '</span></td></tr>';
+
 						for (var k = 2; k < m.length; k += 2) {
 							var i = m[k], j = m[k+1];
 							subm += '<tr><td>'
@@ -49,7 +53,7 @@ var Greg = {
 								subm += (++mcnt);
 								subm += ". ";
 							}
-							subm += '</td><td>'
+							subm += '</td><td style="padding-left: 8px">'
 							subm += input.substring(i, j);
 							subm += '</td></tr>\n';
 						}
@@ -58,6 +62,7 @@ var Greg = {
 				list += input.substring(pos, input.length);
 			}
 			list += '</li>';
+			mcnt = 0;
 		}
 		list += '</ul>';
 		result.html(list);

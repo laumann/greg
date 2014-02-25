@@ -52,6 +52,9 @@ const header =
 	table.qref td {
 		vertical-align: top;
 	}
+	span.match-count {
+		font-family: sans-serif;
+	}
 	</style>
 </head>
 <body>
