@@ -444,11 +444,9 @@ const regForm = `
 				</p>
 				<p><span class="label label-primary">Features to come</span></p>
 				<ul>
-					<li><span class="label label-danger">important!</span> Display named submatches with their names</li>
 					<li>Use package <code>regexp/syntax</code> to provide regex simplification</li>
 					<li>Permalink generation under options</li>
 					<li>Further regex options should be tick-off-able (aligned to the left of options dropdown). Options: POSIX</li>
-					<li>Loading spinner, positioned where? &mdash; Maybe put it to the right of the regex field, and remove the modifiers input (unused)</li>
 				</ul>
 			</div>
 		</div>

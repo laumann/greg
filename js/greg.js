@@ -22,7 +22,6 @@ var Greg = {
 		var groups = $("#match-groups");
 
 		var list = '<ul class="list-unstyled">';
-		var mcnt = 0;
 		var n = 0;
 		var subm = '';
 		for (var key in json.matches) {
@@ -42,15 +41,15 @@ var Greg = {
 						if (json.matches.length > 1)
 							subm += '<tr><td colspan=2><span class="match-count">Match ' + (++n) + '</span></td></tr>';
 
-						for (var k = 2; k < m.length; k += 2) {
-							var i = m[k], j = m[k+1];
+						for (var k = 1; k < m.length/2; k++) {
+							var i = m[k<<1], j = m[(k<<1)+1];
 							subm += '<tr><td>'
-							if (json.names[k/2]) {
+							if (json.names[k]) {
 								subm += '<span class="label label-primary">';
-								subm += json.names[k/2];
+								subm += json.names[k];
 								subm += '</span>';
 							} else {
-								subm += (++mcnt);
+								subm += k;
 								subm += ". ";
 							}
 							subm += '</td><td style="padding-left: 8px">'
@@ -62,7 +61,6 @@ var Greg = {
 				list += input.substring(pos, input.length);
 			}
 			list += '</li>';
-			mcnt = 0;
 		}
 		list += '</ul>';
 		result.html(list);
