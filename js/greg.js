@@ -33,36 +33,37 @@ var Greg = {
 			var im = json.matches[key].im; // im is [][]int
 			if (im == null) {
 				list += input;
-			} else {
-				var pos = 0;
-				im.forEach(function(m) {
-					var i = m[0], j = m[1];
-					list += input.substring(pos, i); // before match
-					list += '<span class="match">' + input.substring(i, j) + '</span>'; // match
-					pos = j; // move pos up
-					if (m.length > 2) {
-						if (json.matches.length > 1)
-							subm += '<tr><td colspan=2><span class="match-count">Match ' + (++n) + '</span></td></tr>';
-
-						for (var k = 1; k < m.length/2; k++) {
-							var i = m[k<<1], j = m[(k<<1)+1];
-							subm += '<tr><td>'
-							if (json.names[k]) {
-								subm += '<span class="label label-primary">';
-								subm += json.names[k];
-								subm += '</span>';
-							} else {
-								subm += k;
-								subm += ". ";
-							}
-							subm += '</td><td style="padding-left: 8px">'
-							subm += input.substring(i, j);
-							subm += '</td></tr>\n';
-						}
-					}
-				});
-				list += input.substring(pos, input.length);
+				list += '</li>';
+				continue;
 			}
+			var pos = 0;
+			im.forEach(function(m) {
+				var i = m[0], j = m[1];
+				list += input.substring(pos, i); // before match
+				list += '<span class="match">' + input.substring(i, j) + '</span>'; // match
+				pos = j; // move pos up
+				if (m.length > 2) {
+					if (json.matches.length > 1)
+						subm += '<tr><td colspan=2><span class="match-count">Match ' + (++n) + '</span></td></tr>';
+
+					for (var k = 1; k < m.length/2; k++) {
+						var i = m[k<<1], j = m[(k<<1)+1];
+						subm += '<tr><td>'
+						if (json.names[k]) {
+							subm += '<span class="label label-primary">';
+							subm += json.names[k];
+							subm += '</span>';
+						} else {
+							subm += k;
+							subm += ". ";
+						}
+						subm += '</td><td style="padding-left: 8px">'
+						subm += input.substring(i, j);
+						subm += '</td></tr>\n';
+					}
+				}
+			});
+			list += input.substring(pos, input.length);
 			list += '</li>';
 		}
 		list += '</ul>';
@@ -76,7 +77,7 @@ var Greg = {
 		$("#regex-match").removeClass("hidden");
 	},
 	update: function() {
-		if ( $("#regex").val() == "" || $("#regex-input").val() == "")
+		if ($("#regex").val() == "" || $("#regex-input").val() == "")
 			return;
 		Greg.showSpinner();
 

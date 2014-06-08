@@ -7,7 +7,6 @@
 //
 // TODO Use POSIX matcher if specified
 // TODO Don't throw away blank lines
-// TODO Provide simplify functionality
 package greg
 
 import (
@@ -26,9 +25,9 @@ func index(w http.ResponseWriter, req *http.Request) {
 	io.WriteString(w, footer)
 }
 
-// Encoding an error
-func encErr(j *json.Encoder, err error) {
-	j.Encode(map[string]string{"error": err.Error()})
+// Encoding an error string
+func encError(j *json.Encoder, msg string) {
+	j.Encode(map[string]string{"error": msg})
 }
 
 // Simplifying a regular expression
@@ -36,15 +35,14 @@ func encErr(j *json.Encoder, err error) {
 func simplify(w http.ResponseWriter, req *http.Request) {
 	j := json.NewEncoder(w)
 	if err := req.ParseForm(); err != nil {
-		encErr(j, err)
+		encError(j, err.Error())
 		return
 	}
 	rex := req.PostForm.Get("regex")
 
-	// TODO(tj)
 	re, err := syntax.Parse(rex, syntax.Perl)
 	if err != nil {
-		encErr(j, err)
+		encError(j, err.Error())
 		return
 	}
 	j.Encode(map[string]string{"regex": re.Simplify().String()})
@@ -71,28 +69,28 @@ func compile(w http.ResponseWriter, req *http.Request) {
 	j := json.NewEncoder(w)
 
 	if err := req.ParseForm(); err != nil {
-		j.Encode(map[string]string{"error": err.Error()})
+		encError(j, err.Error())
 		return
 	}
 	exp := req.PostForm.Get("regex")
 	if exp == "" {
-		j.Encode(map[string]string{"error": "greg: Regex cannot be empty"})
+		encError(j, "greg: Regex cannot be empty")
 		return
 	}
 	input := req.PostForm.Get("regex-input")
 	if input == "" {
-		j.Encode(map[string]string{"error": "greg: Input cannot be empty"})
+		encError(j, "greg: Input cannot be empty")
 		return
 	}
 	inputs := strings.Split(input, "\r\n")
 	if len(inputs) == 1 && inputs[0] == "" {
-		j.Encode(map[string]string{"error": "greg: Input cannot be empty"})
+		encError(j, "greg: Input cannot be empty")
 		return
 	}
 
 	re, err := regexp.Compile(exp)
 	if err != nil {
-		j.Encode(map[string]string{"error": err.Error()})
+		encError(j, err.Error())
 		return
 	}
 
@@ -112,7 +110,7 @@ func compile(w http.ResponseWriter, req *http.Request) {
 
 	err = j.Encode(ret)
 	if err != nil {
-		j.Encode(map[string]string{"error": err.Error()})
+		encError(j, err.Error())
 	}
 }
 
