@@ -8,13 +8,16 @@ var Greg = {
 	hideSpinner: function() {
 		$("#spin").addClass("hidden");
 	},
+	showError: function(msg) {
+		$("#regex-match").addClass("hidden");
+		$("#error-msg").html(msg);
+		$("#regex-fail").removeClass("hidden");
+	},
 	showMatches: function(json) {
 		$("#greeting").addClass("hidden");
 		Greg.hideSpinner();
 		if (json.error) {
-			$("#regex-match").addClass("hidden");
-			$("#error-msg").html(json.error);
-			$("#regex-fail").removeClass("hidden");
+			Greg.showError(json.error);
 			return;
 		}
 		console.log(json);
@@ -106,9 +109,8 @@ var Greg = {
 		$("#regex-fail").addClass("hidden");
 		$("#greeting").removeClass("hidden");
 	},
-
 	simplify: function() {
-		if ( $("#regex").val() == "")
+		if ($("#regex").val() == "")
 			return;
 		Greg.showSpinner();
 
@@ -119,12 +121,15 @@ var Greg = {
 			success: function(json, status, jqXHR) {
 				$("#greeting").addClass("hidden");
 				Greg.hideSpinner();
+				if (json.error) {
+					Greg.showError(json.error);
+					return;
+				}
 				$("#regex").val(json.regex);
-				// TODO Handle errors
 			},
 			error:   function(jqXHR, status, err) {
 				Greg.hideSpinner();
-				// TODO Handle errors
+				// TODO Handle errors?
 			},
 			dataType: "json"
 		});
