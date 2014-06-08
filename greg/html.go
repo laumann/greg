@@ -126,17 +126,15 @@ const regForm = `
 	<div class="pull-left"><img src="img/ajax-loader.gif" id="spin" class="hidden" /></div>
 	<div class="pull-right">
 		<div class="btn-group text-left">
-			<!--
-			<button type="button" class="btn btn-sm btn-default">Simplify</button>
+			<button type="button" class="btn btn-sm btn-default" onclick="Greg.simplify(); return false;">Simplify</button>
 			<div class="btn-group">
-			-->
 			<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
 				Options <span class="caret"></span>
 			</button>
 			<ul class="dropdown-menu" role="menu">
 				<li><a href="#" onclick="Greg.clear(); return false;">Clear fields</a></li>
 			</ul>
-			<!-- /div -->
+			</div>
 		</div>
 	</div>
 	</div>
@@ -436,8 +434,8 @@ const regForm = `
 			</div>
 			</div>
 			<div class="tab-pane fade" id="about">
-			<p>Created by <a href="http://github.com/laumann">Thomas
-			Jespersen</a>. Heavily inspired
+			<p>Created by <a
+			href="http://github.com/laumann">laumann</a>. Heavily inspired
 				by <a href="http://rubular.com">Rubular</a>. The
 				source code can be found on <a
 				href="http://github.com/laumann/greg">Github</a>

@@ -15,6 +15,7 @@ import (
 	"io"
 	"net/http"
 	"regexp"
+	"regexp/syntax"
 	"strings"
 )
 
@@ -23,6 +24,30 @@ func index(w http.ResponseWriter, req *http.Request) {
 	io.WriteString(w, gregHeader)
 	io.WriteString(w, regForm)
 	io.WriteString(w, footer)
+}
+
+// Encoding an error
+func encErr(j *json.Encoder, err error) {
+	j.Encode(map[string]string{"error": err.Error()})
+}
+
+// Simplifying a regular expression
+// Just returns encoded as JSON: regex => simplified expression
+func simplify(w http.ResponseWriter, req *http.Request) {
+	j := json.NewEncoder(w)
+	if err := req.ParseForm(); err != nil {
+		encErr(j, err)
+		return
+	}
+	rex := req.PostForm.Get("regex")
+
+	// TODO(tj)
+	re, err := syntax.Parse(rex, syntax.Perl)
+	if err != nil {
+		encErr(j, err)
+		return
+	}
+	j.Encode(map[string]string{"regex": re.Simplify().String()})
 }
 
 // Compile a given regular expression and write out the result in JSON
@@ -94,4 +119,5 @@ func compile(w http.ResponseWriter, req *http.Request) {
 func init() {
 	http.HandleFunc("/", index)
 	http.HandleFunc("/compile", compile)
+	http.HandleFunc("/simplify", simplify)
 }

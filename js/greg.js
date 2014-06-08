@@ -106,4 +106,27 @@ var Greg = {
 		$("#regex-fail").addClass("hidden");
 		$("#greeting").removeClass("hidden");
 	},
+
+	simplify: function() {
+		if ( $("#regex").val() == "")
+			return;
+		Greg.showSpinner();
+
+		$.ajax({
+			type:    "POST",
+			url:     "/simplify",
+			data:    $("#greg").serialize(),
+			success: function(json, status, jqXHR) {
+				$("#greeting").addClass("hidden");
+				Greg.hideSpinner();
+				$("#regex").val(json.regex);
+				// TODO Handle errors
+			},
+			error:   function(jqXHR, status, err) {
+				Greg.hideSpinner();
+				// TODO Handle errors
+			},
+			dataType: "json"
+		});
+	}
 };
