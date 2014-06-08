@@ -442,7 +442,6 @@ const regForm = `
 				</p>
 				<p><span class="label label-primary">Features to come</span></p>
 				<ul>
-					<li>Use package <code>regexp/syntax</code> to provide regex simplification</li>
 					<li>Permalink generation under options</li>
 					<li>Further regex options should be tick-off-able (aligned to the left of options dropdown). Options: POSIX</li>
 				</ul>
